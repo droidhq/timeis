@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Clock</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    #clock-container {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .clock {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="clock-container">
+    <div id="new-york" class="clock"></div>
+    <div id="tokyo" class="clock"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      function updateClock(city, timeZone) {
+        const currentDate = new Date();
+        const options = {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          timeZone: timeZone
+        };
+
+        const dateTimeFormat = new Intl.DateTimeFormat('en-US', options);
+        const formattedDateTime = dateTimeFormat.format(currentDate);
+
+        document.getElementById(city).innerHTML = `<h2>${city}</h2>${formattedDateTime}`;
+      }
+
+      function updateWorldClock() {
+        updateClock('new-york', 'America/New_York');
+        updateClock('tokyo', 'Asia/Tokyo');
+      }
+
+      // Update the world clock every second
+      setInterval(updateWorldClock, 1000);
+
+      // Initial update
+      updateWorldClock();
+    });
+  </script>
+
+</body>
+
+</html>
